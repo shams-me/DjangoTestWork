@@ -15,7 +15,7 @@
   - Сотрудник: http://127.0.0.1/api/v1/statistics/employee/<id:uuid>
   - Клиент: http://127.0.0.1/api/v1/statistics/client/<id:uuid>
 
-# Spent time: https://wakatime.com/badge/user/2ca9a9c3-5c6a-4e04-affb-cbd0c50b9697/project/018da7f2-14af-471b-bd29-f3874c412e41.svg
+Spent time: ![--](https://wakatime.com/badge/user/2ca9a9c3-5c6a-4e04-affb-cbd0c50b9697/project/018da7f2-14af-471b-bd29-f3874c412e41.svg)
 
 # Тестовое задание для Backend Разработчиков
 
