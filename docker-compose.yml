@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  postgres_db:
+    container_name: postgres
+    image: postgres:15
+    env_file: "etc/environs/postgres.env"
+    volumes:
+      - ./storage/postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U app -d movies_database", ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  django:
+    container_name: django
+    env_file: "etc/environs/django.env"
+    build: django_api
+    restart: on-failure
+    volumes:
+      - ./django_api/static:/opt/app/static:ro
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    restart: on-failure
+    volumes:
+      - ./etc/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./etc/nginx/conf.d/site.conf:/etc/nginx/conf.d/site.conf:ro
+      - ./django_api/static:/opt/app/static:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - django
